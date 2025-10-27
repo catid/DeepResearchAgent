@@ -1,3 +1,18 @@
+import os
+
+PRIMARY_MODEL_ID = os.getenv("LOCAL_PRIMARY_MODEL_NAME", "gpt-4.1")
+RESEARCH_MODEL_ID = os.getenv("LOCAL_RESEARCH_MODEL_NAME", PRIMARY_MODEL_ID)
+BROWSER_MODEL_ID = os.getenv("LOCAL_BROWSER_MODEL_NAME", PRIMARY_MODEL_ID)
+ANALYZER_MODEL_ID = os.getenv(
+    "LOCAL_ANALYZER_MODEL_NAME",
+    os.getenv("LOCAL_VLLM_MODEL_NAME", "local-vllm"),
+)
+SUMMARIZER_MODEL_ID = os.getenv("LOCAL_SUMMARIZER_MODEL_NAME", PRIMARY_MODEL_ID)
+DEEP_RESEARCH_TOOL_MODEL_ID = os.getenv(
+    "LOCAL_DEEP_RESEARCH_MODEL_NAME",
+    "o3-deep-research",
+)
+
 web_fetcher_tool_config = dict(
     type="web_fetcher_tool",
 )
@@ -16,7 +31,7 @@ web_searcher_tool_config = dict(
 
 deep_researcher_tool_config  = dict(
     type="deep_researcher_tool",
-    model_id = "gpt-4.1",
+    model_id = RESEARCH_MODEL_ID,
     max_depth = 2,
     max_insights = 20,
     time_limit_seconds = 60,
@@ -25,13 +40,13 @@ deep_researcher_tool_config  = dict(
 
 auto_browser_use_tool_config  = dict(
     type="auto_browser_use_tool",
-    model_id="gpt-4.1"
+    model_id=BROWSER_MODEL_ID,
 )
 
 deep_analyzer_tool_config  = dict(
     type="deep_analyzer_tool",
-    analyzer_model_ids = ["gemini-2.5-pro"],
-    summarizer_model_id = "gemini-2.5-pro",
+    analyzer_model_ids = [ANALYZER_MODEL_ID],
+    summarizer_model_id = SUMMARIZER_MODEL_ID,
 )
 
 mcp_tools_config = {
@@ -69,5 +84,5 @@ file_reader_tool_config = dict(
 
 oai_deep_research_tool_config = dict(
     type="oai_deep_research_tool",
-    model_id = "o3-deep-research",
+    model_id = DEEP_RESEARCH_TOOL_MODEL_ID,
 )

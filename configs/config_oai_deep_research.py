@@ -1,3 +1,8 @@
+import os
+
+PRIMARY_MODEL_ID = os.getenv("LOCAL_PRIMARY_MODEL_NAME", "gpt-4.1")
+DEEP_RESEARCH_MODEL_ID = os.getenv("LOCAL_DEEP_RESEARCH_MODEL_NAME", "o3-deep-research")
+
 _base_ = './base.py'
 
 # General Config
@@ -19,13 +24,13 @@ dataset = dict(
 
 oai_deep_research_tool_config = dict(
     type="oai_deep_research_tool",
-    model_id = "o3-deep-research",
+    model_id = DEEP_RESEARCH_MODEL_ID,
 )
 
 oai_deep_research_agent_config = dict(
     type="general_agent",
     name="oai_deep_research_agent",
-    model_id="gpt-4.1",
+    model_id=PRIMARY_MODEL_ID,
     description = "A general agent that can perform deep research using openai's deep research capabilities.",
     max_steps = 20,
     template_path = "src/agent/general_agent/prompts/general_agent.yaml",

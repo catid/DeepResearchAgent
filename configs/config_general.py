@@ -1,3 +1,7 @@
+import os
+
+PRIMARY_MODEL_ID = os.getenv("LOCAL_PRIMARY_MODEL_NAME", "gpt-4.1")
+
 _base_ = './base.py'
 
 # General Config
@@ -12,7 +16,7 @@ use_hierarchical_agent = False
 general_agent_config = dict(
     type="general_agent",
     name="general_agent",
-    model_id="gpt-4.1",
+    model_id=PRIMARY_MODEL_ID,
     description = "A general agent that can handle various tasks.",
     max_steps = 20,
     template_path = "src/agent/general_agent/prompts/general_agent.yaml",

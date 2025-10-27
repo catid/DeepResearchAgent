@@ -145,7 +145,7 @@ def search(params):
     In a real-world scenario, this would interface with the Google Search API.
     """
     
-    base_url = os.getenv("SKYWORK_GOOGLE_SEARCH_API", None)
+    base_url = os.getenv("LOCAL_GOOGLE_SEARCH_API", None)
 
     query = params.get("q", "")
     filter_year = params.get("filter_year", None)

@@ -98,35 +98,34 @@ Image and Video Examples:
 ### Prepare Environment
 
 ```bash
-# poetry install environment
-conda create -n dra python=3.11
-conda activate dra
+# create an isolated environment with uv
+uv venv --python 3.13 .venv
+source .venv/bin/activate
 make install
 
-# (Optional) You can also use requirements.txt
-conda create -n dra python=3.11
-conda activate dra
+# (Optional) install dependencies from requirements.txt instead of poetry
+source .venv/bin/activate
 make install-requirements
-
-# playwright install if needed
-pip install playwright
-playwright install chromium --with-deps --no-shell
 ```
 
 ### Set Up `.env`
 
-Please refer to the `.env.template` file and create a `.env` file in the root directory of the project. This file is used to configure API keys and other environment variables.
-
-Refer to the following instructions to obtain the necessary google gemini-2.5-pro API key and set it in the `.env` file:
-
-* [https://aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)
-* [https://cloud.google.com/docs/authentication/application-default-credentials?hl=zh-cn](https://cloud.google.com/docs/authentication/application-default-credentials?hl=zh-cn)
+Please refer to the `.env.template` file and create a `.env` file in the root directory of the project. Copy the template (`cp .env.template .env`) and adjust the key variables for the default local setup:
 
 ```bash
-brew install --cask google-cloud-sdk
-gcloud init
-gcloud auth application-default login
+LOCAL_OPENAI_API_BASE=http://ripper.lan:8000/v1
+LOCAL_OPENAI_API_KEY=local-dev-key
+LOCAL_OPENAI_CHAT_MODEL_ID=local-openai
+
+LOCAL_VLLM_API_BASE=http://ripper2.lan:8000/v1
+LOCAL_VLLM_MODEL_NAME=local-vllm
+LOCAL_VLLM_MODEL_ID=Qwen
+
+LOCAL_PRIMARY_MODEL_NAME=gpt-4.1
+LOCAL_ANALYZER_MODEL_NAME=local-vllm
 ```
+
+Remote API keys (OpenAI, Anthropic, Google, etc.) are optional; they are only used if the corresponding local values are missing.
 
 ## Usage
 

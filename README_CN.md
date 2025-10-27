@@ -62,33 +62,33 @@
 ### 环境准备
 
 ```bash
-conda create -n dra python=3.11
-conda activate dra
+uv venv --python 3.13 .venv
+source .venv/bin/activate
 make install
 
-# 或者使用 requirements.txt 安装
-conda create -n dra python=3.11
-conda activate dra
+# （可选）使用 requirements.txt 安装
+source .venv/bin/activate
 make install-requirements
-
-# 安装 playwright 以启用浏览器支持
-pip install playwright
-playwright install chromium --with-deps --no-shell
 ```
 
 ### 设置 `.env` 文件
 
-请参考 `.env.template` 文件，在项目根目录创建 `.env` 文件。该文件用于配置 API 密钥和其他环境变量。
-
-如需使用 Google 模型：
-* 获取 API Key：[https://aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)
-* 获取 application\_default\_credentials.json：
+请参考 `.env.template` 文件，在项目根目录创建 `.env` 文件（例如运行 `cp .env.template .env`）。本地部署默认需要关注以下变量：
 
 ```bash
-brew install --cask google-cloud-sdk
-gcloud init
-gcloud auth application-default login
+LOCAL_OPENAI_API_BASE=http://ripper.lan:8000/v1
+LOCAL_OPENAI_API_KEY=local-dev-key
+LOCAL_OPENAI_CHAT_MODEL_ID=local-openai
+
+LOCAL_VLLM_API_BASE=http://ripper2.lan:8000/v1
+LOCAL_VLLM_MODEL_NAME=local-vllm
+LOCAL_VLLM_MODEL_ID=Qwen
+
+LOCAL_PRIMARY_MODEL_NAME=gpt-4.1
+LOCAL_ANALYZER_MODEL_NAME=local-vllm
 ```
+
+如果希望在本地模型缺失时回退到云服务，可以同时保留 OpenAI、Anthropic、Google 等远程 API Key。
 
 ## 使用说明
 
